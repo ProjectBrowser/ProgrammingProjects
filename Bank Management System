@@ -1,0 +1,301 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+
+struct AccountsInfo
+{
+    string name;
+    string dateOfBirth;
+    string address;
+    string city;
+    string state;
+    string country;
+    string pinCode;
+    string phone;
+    string email;
+    string debitCardInfo;
+    string typeAccount;
+    string accountNum;
+    int balance;
+};
+
+void changeRequests();
+void Account();
+void Transactions();
+void Login(string &, string &);
+bool Users(string &, string &);
+
+AccountsInfo information;
+
+int main()
+{
+
+    int choice;
+    string user, pass, branchCode, branchName;
+
+
+    cout << "Welcome to JPMorgan Chase and Commercial Banking.\n\n";
+    cout << "Since you're new, let's get you started by registering for the bank\n\n";
+    cout << "What's your name?: ";
+    std::getline(std::cin, information.name);
+
+    cout << endl;
+
+    cout << "What is your date of birth?: ";
+    std::getline(std::cin, information.dateOfBirth);
+    cout << endl;
+
+    cout << "What is your home address?: ";
+    std::getline(std::cin, information.address);
+    cout << endl;
+
+    cout << "What state do you live in?: ";
+    std::getline(std::cin, information.state);
+    cout << endl;
+
+    cout << "What country do you live in?: ";
+    std::getline(std::cin, information.country);
+    cout << endl;
+
+    cout << "What is your phone number?: ";
+    std::getline(std::cin, information.phone);
+    cout << endl;
+
+    cout << "What is your email?: ";
+    std::getline(std::cin, information.email);
+    cout << endl;
+
+    cout << "What is your debit card information?: ";
+    std::getline(std::cin, information.debitCardInfo);
+    cout << endl;
+
+    cout << "Now, create a 4-digit pin code for your debit card: ";
+    std::getline(std::cin, information.pinCode);
+    while(information.pinCode.length() != 4)
+    {
+        cout << "The 4-digit pin must be exactly four numbers.\n";
+        std::getline(std::cin, information.pinCode);
+    }
+    cout << endl;
+
+    cout << "What is your Account Number?: ";
+    std::getline(std::cin, information.accountNum);
+    while(isdigit(atoi(information.accountNum.c_str())))
+    {
+        cout << "Only numbers are acceptable with the Account Number.\n";
+        std::getline(std::cin, information.accountNum);
+    }
+    cout << endl;
+
+    cout << "What is the type of your Account?(Checkings or Savings): ";
+    std::getline(std::cin, information.typeAccount);
+    cout << endl;
+
+    cout << "What is the balance of your Account?: ";
+    cin >> information.balance;
+    cout << endl;
+
+
+    cout << "Welcome " << information.name << " to JPMorgans Chase Commercial Banking\n";
+    cout << information.dateOfBirth << endl;
+    cout << information.address << endl;
+    cout << information.state << endl;
+    cout << information.country << endl;
+    cout << information.phone << endl;
+    cout << information.email << endl;
+    cout << endl;
+
+    system("pause");
+
+    cout << endl;
+
+    do {
+
+
+    cout << "Now that you're registered, how can we help assist you?\n";
+    cout << "1. Change Request\n";
+    cout << "2. Check Account\n";
+    cout << "3. Transactions\n";
+    cout << "4. Login\n";
+    cout << "5. Check for Users\n";
+    cout << "6. Leave the Bank\n\n";
+    cin >> choice;
+
+
+    switch(choice)
+    {
+        case 1 : cout << "You are about to Change a Request.\n";
+                  changeRequests();
+                  break;
+        case 2 : cout << "You chose to check your Account.\n";
+                  system("pause");
+                  Account();
+                  break;
+        case 3 : cout << "You chose to do Transactions.\n";
+                  Transactions();
+                  break;
+        case 4 : cout << "You chose to to Login to your Bank Account.\n";
+                  Login(user, pass);
+                  break;
+        case 5 : cout << "You are asking to check for any users in the Banking System.\n";
+                  Users(user, pass);
+                  break;
+        case 6 :  cout << "Thanks for visiting the JP Morgans Chase Bank. Have a nice day!!\n\n";
+                  break;
+    }
+
+    } while(choice != 6);
+
+    return 0;
+}
+
+void changeRequests()
+{
+    string company, address, date;
+    bool status1,status2, status3;
+    cout << "To(Company/Financial Institution Name): ";
+    cin >> company;
+    cout << endl;
+
+    cin.ignore();
+
+    cout << "Company/Financial Institution address: ";
+    getline(cin, address);
+    cout << endl;
+
+    cin.ignore();
+
+    cout << "Date: ";
+    std::getline(std::cin, date);
+
+
+    cout << endl;
+
+    cout << "Re: Request Change to Automated Payment or Deposit\n";
+    cout << "To whom it may concern:\n";
+    cout << "For the following account(s):\n";
+    cout << "I authorize you to process the following(check all that apply):\n";
+    cout << "Redirect automatic deposits to now go into my new JP Morgan Chase bank account(true/false): ";
+    cin >> status1;
+    cout << endl;
+    cout << "Redirect automatic payments to now go out of my new JP Morgan Chase bank account(true/false): ";
+    cin >> status2;
+    cout << endl;
+    cout << "Redirect automatic payments from the above account(s)(true/false): ";
+    cin >> status3;
+
+
+    cout << endl;
+}
+
+void Account()
+{
+   cout << "Name: " << information.name << endl;
+   cout << "Account type: " << information.typeAccount << endl;
+   cout << "Debit card number: " << information.debitCardInfo << endl;
+   cout << "Account number: " << information.accountNum << endl;
+   cout << "Balance: $" << information.balance << endl;
+}
+
+void Transactions()
+{
+    char decide;
+    int amount;
+    cout << "How much money would you like to withdraw?: $";
+    cin >> amount;
+
+    cout << endl;
+
+    information.balance -= amount;
+
+    cout << " You have requested to take $" << amount << " from your balance.\n\n";
+    cout << "Wait a moment....\n";
+    system("pause");
+
+    cout << "Transaction completed. You now have $" << information.balance << " left in your bank account.\n\n";
+
+    cin.ignore();
+
+    cout << "Would you like to withdraw again?(y/n): ";
+    cin.get(decide);
+    if(decide == 'y' || decide == 'Y') {
+        Transactions();
+    }
+    else
+    {
+        cout << "Have a nice day.\n\n\n";
+    }
+
+}
+
+void Login(string &userName, string &password)
+{
+
+    if(userName.empty())
+    {
+        string decision;
+
+
+        cout << "OOPS!!.... Looks like you did not sign up yet\n\n";
+        cout << "Would you like to sign up?(yes/no)\n";
+
+        cin.ignore();
+        std::getline(std::cin, decision);
+
+        if(decision != "no" && decision != "No")
+        {
+            cout << "Create a Username. Try to add capital letters, numbers and special characters.\n\n";
+            getline(cin, userName);
+
+            cout << "Now, create a password. It can be anything you want. Just make it strong enough.\n";
+            getline(cin, password);
+
+            cout << "Your Logging credentials are all set up.\n\n";
+
+
+            cout << "Username: ";
+            getline(cin, userName);
+            cout << endl;
+
+            cout << "Password: ";
+            getline(cin, password);
+            cout << endl;
+
+
+            cout << "Welcome back.\n\n\n";
+            cout << userName << endl;
+            cout << password << endl;
+        }
+        else
+        {
+            cout << "That's completely fine.\n\n\n";
+
+        }
+    }
+
+}
+
+bool Users(string &userID, string &passID)
+{
+    int userProfile = 0;
+    bool check = false;
+
+    cout << endl;
+
+    if(!check)
+    {
+        cout << "Username: " << userID << endl;
+        cout << "Password: " << passID << endl;
+        userProfile++;
+
+        cout << userProfile << " User(s) were found in the system.\n";
+    }
+
+    cout << endl;
+
+    return check;
+
+}
+
